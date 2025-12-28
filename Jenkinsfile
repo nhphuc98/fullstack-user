@@ -103,9 +103,53 @@ pipeline {
             }
         }
         
+        stage('Deploy to ECS') {
+            steps {
+                echo 'Deploying to ECS Fargate...'
+                script {
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: 'aws-credentials',
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                    ]]) {
+                        // Update Backend Service
+                        echo 'Updating Backend ECS service...'
+                        sh """
+                            aws ecs update-service \
+                                --cluster fullstack-user-ecs-cluster \
+                                --service backend-service \
+                                --force-new-deployment \
+                                --region ${AWS_REGION}
+                        """
+                        
+                        // Update Frontend Service
+                        echo 'Updating Frontend ECS service...'
+                        sh """
+                            aws ecs update-service \
+                                --cluster fullstack-user-ecs-cluster \
+                                --service frontend-service \
+                                --force-new-deployment \
+                                --region ${AWS_REGION}
+                        """
+                        
+                        // Wait for services to stabilize
+                        echo 'Waiting for services to stabilize...'
+                        sh """
+                            aws ecs wait services-stable \
+                                --cluster fullstack-user-ecs-cluster \
+                                --services backend-service frontend-service \
+                                --region ${AWS_REGION}
+                        """
+                    }
+                }
+                echo 'Deployment completed successfully!'
+            }
+        }
+        
         stage('Cleanup') {
             steps {
-                echo '🧹 Cleaning up local Docker images...'
+                echo 'Cleaning up local Docker images...'
                 script {
                     sh """
                         docker rmi fullstack-user-backend:${IMAGE_TAG} || true
