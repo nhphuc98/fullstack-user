@@ -81,3 +81,12 @@ output "application_url" {
   description = "Application URL"
 }
 
+output "backend_target_group_arn" {
+  value       = module.alb.backend_target_group_arn
+  description = "Backend Target Group ARN"
+}
+
+output "frontend_target_group_arn" {
+  value       = module.alb.frontend_target_group_arn
+  description = "Frontend Target Group ARN"
+}

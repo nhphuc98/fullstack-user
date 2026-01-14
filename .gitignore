@@ -46,6 +46,5 @@ yarn-error.log*
 Thumbs.db
 
 # Documentation
-*.md
 !README.md
-docs/
+guide/

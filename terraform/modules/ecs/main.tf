@@ -119,7 +119,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_role_policy_attachment" {
 
 # Frontend
 resource "aws_cloudwatch_log_group" "frontend_log_group" {
-    name = "ecs/ecs/frontend-log-group"
+    name = "ecs/frontend-log-group"
     retention_in_days = 7
 }
 
@@ -184,7 +184,7 @@ resource "aws_ecs_service" "frontend_service" {
 
 # Backend
 resource "aws_cloudwatch_log_group" "backend_log_group" {
-    name = "ecs/ecs/backend-log-group"
+    name = "ecs/backend-log-group"
     retention_in_days = 7
 }
 
