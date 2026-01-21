@@ -112,5 +112,4 @@ fullstack-user/
 
 ---
 
-**Last Updated**: December 2025  
-**Author**: Nguyen Hoang Phuc  
+**Last Updated**: December 2025 - **Author**: Nguyen Hoang Phuc  

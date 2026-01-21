@@ -46,5 +46,4 @@ docker-compose up -d
 
 ---
 
-**Project completed:** December 2025
-**Author:** Nguyen Hoang Phuc
+**Project completed:** December 2025 - **Author:** Nguyen Hoang Phuc

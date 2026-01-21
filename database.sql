@@ -1,6 +1,8 @@
 -- Database: fullstack_user
 -- Table: users
 
+CREATE DATABASE fullstack_user;
+
 CREATE TABLE IF NOT EXISTS public.users
 (
     id           serial primary key,
